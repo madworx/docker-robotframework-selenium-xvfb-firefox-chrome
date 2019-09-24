@@ -6,8 +6,14 @@ git:
 services:
   - docker
 
+before_install:
+  - source <(curl 'https://raw.githubusercontent.com/madworx/cd-ci-glue/master/src/cd-ci-glue.bash')
+
 before_script:
   - make docker-build
 
 script:
   - make tests
+
+after_success:
+  - make docker-label-versions
