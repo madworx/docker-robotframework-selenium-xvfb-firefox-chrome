@@ -1,0 +1,13 @@
+language: minimal
+
+git:
+  depth: 1
+
+services:
+  - docker
+
+before_script:
+  - make docker-build
+
+script:
+  - make tests
