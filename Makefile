@@ -17,4 +17,7 @@ docker-label-versions: docker-build
 	echo -n "FROM $(IMAGE_NAME)\nLABEL `$(GETVER) | sed 's#^#org.madworx.software.#' | tr '[\n]' ' '`" | docker build -t $(IMAGE_NAME) -f - .
 	docker inspect --format '{{ .Config.Labels }}' madworx/robotframework-selenium-xvfb-firefox-chrome
 
-.PHONY: docker-label-versions tests docker-build all
+get-image-name:
+	@echo $(IMAGE_NAME)
+
+.PHONY: get-image-name docker-label-versions tests docker-build all
