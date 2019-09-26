@@ -4,56 +4,59 @@ import json
 import re
 import sys
 from glob import glob
-from pprint import pprint
 
 # We need 3.6 to ensure dicts iterate over insertion order.
-assert sys.version_info >= (3, 6), "{} is not a supported version".format(sys.version_info)
+assert sys.version_info >= (3, 6),\
+    "{} is not a supported version".format(sys.version_info)
 
-categories = {
-    'browser' : {
-        'chrome':       'Chrome',
-        'chromedriver': 'ChromeDriver',
-        'firefox':      'Firefox',
-        'geckodriver':  'GeckoDriver' ,
+CATEGORIES = {
+    'browser': {
+        'chrome':          'Chrome',
+        'chromedriver':    'ChromeDriver',
+        'firefox':         'Firefox',
+        'geckodriver':     'GeckoDriver',
     },
-    'others' : {
+    'others': {
         'python':          'Python',
-        'robotframework':  'RobotFramework' ,
+        'robotframework':  'RobotFramework',
         'seleniumlibrary': 'SeleniumLibrary',
         'xvfbrobot':       'XvfbRobot',
     }
 }
 
-images = {}
+IMAGES = {}
 for filename in glob("labels-[0-9][0-9][0-9][0-9][0-9][0-9].json"):
     with open(filename, "r") as f:
         labels = json.loads(f.read())
-        versions = { k[21:]: v
-                     for (k,v) in labels.items()
-                        if k.startswith("org.madworx.software") }
-        images[filename[7:13]] = versions
+        versions = {k[21:]: v
+                    for (k, v) in labels.items()
+                    if k.startswith("org.madworx.software")}
+        IMAGES[filename[7:13]] = versions
 
-out = {}
-for image, labels in images.items():
+TABLE = {}
+for image, labels in IMAGES.items():
     for label in labels:
         found = False
-        for (category, props) in categories.items():
+        for (category, props) in CATEGORIES.items():
             if not found:
                 for key, value in props.items():
-                    if not category in out: out[category] = {}
-                    if not value in out[category]: out[category][value] = {}
+                    if category not in TABLE:
+                        TABLE[category] = {}
+                    if value not in TABLE[category]:
+                        TABLE[category][value] = {}
                     if re.match(r'^'+key+'$', label):
-                        if not image in out[category][value]:
-                            out[category][value][image] = images[image][label]
+                        if image not in TABLE[category][value]:
+                            TABLE[category][value][image] = \
+                                IMAGES[image][label]
                             found = True
         if not found:
-            if not label in out['others']:
-                out['others'][label] = {}
-            out['others'][label][image] = labels[label]
+            if label not in TABLE['others']:
+                TABLE['others'][label] = {}
+            TABLE['others'][label][image] = labels[label]
 
-for category, images in out.items():
+for category, images in TABLE.items():
     if category == 'browser':
-        print( "### Browser and driver versions")
+        print("### Browser and driver versions")
     elif category == 'others':
         print("### Software component versions")
     else:
@@ -70,20 +73,20 @@ for category, images in out.items():
         for release in versions.keys():
             releases.add(release)
 
-    str = "| {} "
-    str = "| Release |"
+    header = "| {} "
+    header = "| Release |"
     for software, width in widths.items():
-        str = str + " " + software + " " + " "*(width-len(software)) + "|"
-    divider = re.sub(r'[^|]', '-', str)
+        header = header + " {0: <{1}} |".format(software, width)
+    divider = re.sub(r'[^|]', '-', header)
     print()
-    print(str)
+    print(header)
     print(divider)
 
     for release in sorted(releases, reverse=True):
-        s = "| " + release + "  |"
+        line = "| " + release + "  |"
         for software, width in widths.items():
             softver = images[software][release] if release in images[software] else ""
-            s = s + " {0: <{1}} |".format(softver, width)
-        print(s)
+            line = line + " {0: <{1}} |".format(softver, width)
+        print(line)
 
     print()

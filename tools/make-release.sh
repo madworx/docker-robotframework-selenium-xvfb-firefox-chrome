@@ -10,10 +10,16 @@ IMAGE_NAME="$(make -s get-image-name)"
 RELEASEVER="$(date +%Y%m)"
 RELEASENAME="${IMAGE_NAME}:${RELEASEVER}"
 
+#
+# Tag and push generated image:
+#
 docker tag "${IMAGE_NAME}:latest" "${RELEASENAME}"
 dockerhub_push_image "${RELEASENAME}"
 dockerhub_push_image "${IMAGE_NAME}:latest"
 
+#
+# Generate GitHub Wiki pages:
+#
 CODIR="$(pwd)"
 WIKIDIR="$(github_wiki_prepare "madworx/docker-robotframework-selenium-xvfb-firefox-chrome")"
 
@@ -24,3 +30,8 @@ ${CODIR}/tools/generate-version-wiki.py > "Releases.md"
 
 cd "${CODIR}"
 github_wiki_commit "${WIKIDIR}"
+
+#
+# Update Docker Hub description for project:
+#
+dockerhub_set_description madworx/robotframework-selenium-xvfb-firefox-chrome "${CODIR}/README.md"

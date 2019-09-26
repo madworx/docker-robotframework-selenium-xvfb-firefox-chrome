@@ -5,7 +5,7 @@ XvfbRobot library for headless browser testing)
 
 ## Browser & software versions
 
-List of browser & software versions per docker image are automatically generated and available on [GitHub Wiki](https://github.com/madworx/docker-robotframework-selenium-xvfb-firefox-chrome/wiki/Releases)
+List of browser & software versions per docker image are automatically generated and available on [GitHub Wiki](https://github.com/madworx/docker-robotframework-selenium-xvfb-firefox-chrome/wiki/Releases).
 
 ## Usage
 
