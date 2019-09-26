@@ -3,6 +3,10 @@
 Docker image with RobotFramework, SeleniumLibrary, Firefox and Chrome. (With
 XvfbRobot library for headless browser testing)
 
+## Browser & software versions
+
+List of browser & software versions per docker image are automatically generated and available on [GitHub Wiki](https://github.com/madworx/docker-robotframework-selenium-xvfb-firefox-chrome/wiki/Releases)
+
 ## Usage
 
 If you're standing in the directory with your `.robot` test files, you can
