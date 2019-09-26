@@ -14,10 +14,8 @@ before_script:
 
 script:
   - make tests
+  - make docker-label-versions
 
 after_success:
-  - make docker-label-versions
-  - docker tag $(make get-image-name):latest $(make get-image-name):$(date +%Y%m)
-  - dockerhub_push_image $(make get-image-name):latest
-  - dockerhub_push_image $(make get-image-name):$(date +%Y%m)
+  - make release
   
