@@ -7,10 +7,16 @@ LABEL maintainer="martin.kjellstrand@madworx.se" \
       org.label-schema.vcs-url="https://github.com/madworx/docker-robotframework-selenium-xvfb-firefox-chrome.git" \
       org.label-schema.vcs-ref="${VCS_REF}"
 
-# Install dependencies + Mozilla Firefox
+# Install dependencies
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-        python3-pip firefox-esr xvfb curl
+        python3-pip xvfb curl
+
+# Install Firefox from Debian unstable.
+RUN echo "deb http://cdn-fastly.deb.debian.org/debian sid main" >> /etc/apt/sources.list \
+    && echo "\nPackage: *\nPin: release a=unstable\nPin-Priority: 600\n" >> /etc/apt/preferences \
+    && apt-get update \
+    && apt-get install --assume-yes -t sid firefox
 
 # Install Google Chrome
 RUN curl -sSfL -o google-chrome-stable_current_amd64.deb \
