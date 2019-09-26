@@ -24,6 +24,3 @@ release:
 	./tools/make-release.sh
 
 .PHONY: release get-image-name docker-label-versions tests docker-build all
-
-# docker inspect madworx/robotframework-selenium-xvfb-firefox-chrome | jq -r '.[0].Config.Labels' | jq -r 'to_entries[] | "\(.key)=\(.value)"'
-# 
