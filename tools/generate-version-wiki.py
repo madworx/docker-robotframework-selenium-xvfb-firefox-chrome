@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import json
 import re
@@ -7,7 +7,7 @@ from glob import glob
 from pprint import pprint
 
 # We need 3.6 to ensure dicts iterate over insertion order.
-assert sys.version_info >= (3, 6)
+assert sys.version_info >= (3, 6), "{} is not a supported version".format(sys.version_info)
 
 categories = {
     'browser' : {
@@ -57,7 +57,7 @@ for category, images in out.items():
     elif category == 'others':
         print("### Software component versions")
     else:
-        raise Error("foobar")
+        raise Error("Nobody expects the spanish inquisition...")
 
     widths = {}
     releases = set()
@@ -83,7 +83,7 @@ for category, images in out.items():
         s = "| " + release + "  |"
         for software, width in widths.items():
             softver = images[software][release] if release in images[software] else ""
-            s = s + " {0: <{1}} |".format(softver, width )
+            s = s + " {0: <{1}} |".format(softver, width)
         print(s)
 
     print()
