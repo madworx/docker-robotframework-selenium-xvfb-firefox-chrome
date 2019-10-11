@@ -19,9 +19,14 @@ Test Google
     Press Keys      q   RETURN
     Sleep    3
     Capture Page Screenshot
-    [Teardown]    Close Browser
 
 Test XPath
     Create Headless Browser   file:///robot/test.html
     Element Text Should Be    xpath://p[@id="paraphraph"]   Lorem ipsum
     Click Button              xpath://input[@value="Squeezeit"]
+
+Test click by link text
+    Click Element             link:This is a link to google
+    Sleep    3
+    ${title}=    Get Title
+    Should Be Equal    Google    ${title}

@@ -2,7 +2,7 @@
 
 set -eE
 set -o pipefail
-set -x
+#set -x
 
 source <(curl 'https://raw.githubusercontent.com/madworx/cd-ci-glue/master/src/cd-ci-glue.bash')
 
@@ -21,7 +21,7 @@ dockerhub_push_image "${IMAGE_NAME}:latest"
 # Generate GitHub Wiki pages:
 #
 CODIR="$(pwd)"
-WIKIDIR="$(github_wiki_prepare "madworx/docker-robotframework-selenium-xvfb-firefox-chrome")"
+WIKIDIR="$(_github_doc_prepare "madworx/docker-robotframework-selenium-xvfb-firefox-chrome.wiki.git")"
 
 cd "${WIKIDIR}"
 docker inspect "${RELEASENAME}" | jq -r '.[0].Config.Labels' > "labels-${RELEASEVER}.json"
@@ -29,7 +29,7 @@ cp "${CODIR}/README.md" "Home.md"
 ${CODIR}/tools/generate-version-wiki.py > "Releases.md"
 
 cd "${CODIR}"
-github_wiki_commit "${WIKIDIR}"
+github_doc_commit "${WIKIDIR}"
 
 #
 # Update Docker Hub description for project:
