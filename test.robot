@@ -12,12 +12,12 @@ Create Headless Browser
 
 *** Test Cases ***
 Test Google
-    Create Headless Browser    http://google.com/
-    ${title}=    Get Title
-    Should Be Equal    Google    ${title}
-    Input Text      q   f00bar
-    Press Keys      q   RETURN
-    Sleep    3
+    Create Headless Browser     http://google.com/
+    ${title}=                   Get Title
+    Should Be Equal             Google    ${title}
+    Click Button                xpath://button[@id="L2AGLb"]
+    Press Keys                  q   RETURN
+    Sleep                       3
     Capture Page Screenshot
 
 Test XPath
