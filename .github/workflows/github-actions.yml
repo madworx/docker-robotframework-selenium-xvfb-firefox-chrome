@@ -1,0 +1,28 @@
+name: Docker RobotFramework Selenium Xvfb Firefox Chrome
+run-name: ${{ github.actor }} triggered GitHub Actions
+
+on:
+  push:
+  schedule:
+    - cron:  '37 13 1 * *'
+
+jobs:
+  Build-Test-and-Publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: make
+      - name: Run tests
+        run: make tests
+      - name: Archive robot framework test reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-reports
+          path: out-*/*
+      - name: Add labels to docker image
+        run: make docker-label-versions
+      - name: Publish
+        if: github.ref == 'refs/heads/master'
+        run: make release DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}" DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}" GH_TOKEN="${{ secrets.GH_TOKEN }}"
