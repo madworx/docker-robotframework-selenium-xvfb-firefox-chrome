@@ -15,7 +15,7 @@ jobs:
       - run: make
       - name: Run tests
         run: make tests
-      - name: Archive code coverage results
+      - name: Archive robot framework test reports
         uses: actions/upload-artifact@v3
         if: always()
         with:
