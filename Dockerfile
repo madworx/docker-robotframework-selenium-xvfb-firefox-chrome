@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 ARG VCS_REF="unspecified"
 
-LABEL maintainer="martin.kjellstrand@madworx.se" \
+LABEL maintainer="github@madworx.tech" \
       org.label-schema.schema-version="1.0" \
       org.label-schema.vcs-url="https://github.com/madworx/docker-robotframework-selenium-xvfb-firefox-chrome.git" \
       org.label-schema.vcs-ref="${VCS_REF}"
