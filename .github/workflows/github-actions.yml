@@ -1,0 +1,22 @@
+name: Docker RobotFramework Selenium Xvfb Firefox Chrome
+run-name: ${{ github.actor }} triggered GitHub Actions
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: make
+      - name: Run tests
+        run: make tests
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-reports
+          path: out-*/*
+      - name: Add labels to docker image
+        run: make docker-label-versions
+      - name: Publish
+        run: make release
