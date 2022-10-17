@@ -15,7 +15,7 @@ Test Google
     Create Headless Browser     http://google.com/
     ${title}=                   Get Title
     Should Be Equal             Google    ${title}
-    ${count}=                   Get Matching XPath Count     xpath://button[@id="L2AGLb"]
+    ${count}=                   Get Element Count            xpath://button[@id="L2AGLb"]
     Run Keyword And Return If   ${count} > 0   Click Button  xpath://button[@id="L2AGLb"]
     Press Keys                  q   RETURN
     Sleep                       3
