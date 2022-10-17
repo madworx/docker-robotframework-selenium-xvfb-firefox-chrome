@@ -1,5 +1,7 @@
 # robotframework-selenium-xvfb-firefox-chrome
 
+![Build and test](https://github.com/madworx/docker-robotframework-selenium-xvfb-firefox-chrome/actions/workflows/github-actions.yml/badge.svg)
+
 Docker image with RobotFramework, SeleniumLibrary, Firefox and Chrome. (With
 XvfbRobot library for headless browser testing)
 
