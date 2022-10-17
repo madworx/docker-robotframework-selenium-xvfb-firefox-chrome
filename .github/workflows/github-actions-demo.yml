@@ -16,6 +16,7 @@ jobs:
         run: make tests
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: test-reports
           path: out-*/*
