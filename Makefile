@@ -3,7 +3,7 @@ all:	docker-build
 
 IMAGE_NAME := madworx/robotframework-selenium-xvfb-firefox-chrome
 
-RUNCMD := docker run --rm -it -v $$(pwd):/robot $(IMAGE_NAME) -L TRACE
+RUNCMD := docker run --rm -v $$(pwd):/robot $(IMAGE_NAME) -L TRACE
 GETVER := docker run --rm --entrypoint=/bin/cat $(IMAGE_NAME) /versions.txt
 
 docker-build:
