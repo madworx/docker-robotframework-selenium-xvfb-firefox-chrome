@@ -19,4 +19,4 @@ jobs:
       - name: Add labels to docker image
         run: make docker-label-versions
       - name: Publish
-        run: make release DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}" DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}"
+        run: make release DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}" DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}" GH_TOKEN="${{ secrets.GH_TOKEN }}"
