@@ -2,7 +2,7 @@ name: Docker RobotFramework Selenium Xvfb Firefox Chrome
 run-name: ${{ github.actor }} triggered GitHub Actions
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Build-Test-and-Publish:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
